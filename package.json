@@ -1,8 +1,11 @@
 {
   "name": "nayuta",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Big Integer & Big Decimal Arithmetic Regular Expression Module",
   "main": "nayuta.js",
+  "scripts": {
+    "start": "node ./node_modules/babel-cli/bin/babel-node.js ./example.js"
+  },
   "author": "aimed",
   "license": "MIT",
   "maintainers": [{
@@ -11,7 +14,8 @@
   }],
   "dependencies": {
     "big.js": "^3.1.3",
-    "operator-overloading": "^0.5.1"
+    "babel-cli": "^6.24.1",
+    "babel-plugin-overload": "0.0.1"
   },
   "keywords": [
     "arbitrary",

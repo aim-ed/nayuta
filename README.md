@@ -14,9 +14,9 @@ big.js is support BigInteger & BigDecimal Arithmetic Calculate.
 ## How to use nayuta?
 
 - Create node project using `npm init`.
-- `npm install nayuta`
+- `npm install nayuta --save`
 
-![Showcase](http://i.imgur.com/UHudJCp.png)
+![Showcase](http://i.imgur.com/P181jgd.png)
 
 ## Example
 

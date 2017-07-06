@@ -1,148 +1,131 @@
-const overload = require('operator-overloading')
+//const overload = require('operator-overloading')
 const number = require('big.js')
 
-let Nayuta = (value) => new NayutaClass(value)
+let nayuta = (value) => new NayutaClass(value)
 
 class NayutaClass {
     constructor(value) {
         this.value = number(value)
     }
 
-    __plus(leftOperand) { // +
-        if (typeof leftOperand.value != 'undefined')
-            return Nayuta(leftOperand.value.plus(this.value))
-        return Nayuta(number(leftOperand).plus(this.value))
+    [Symbol.for('+')](rightOperand) {
+        if (typeof rightOperand.value != 'undefined')
+            return nayuta(this.value.plus(rightOperand.value))
+        return nayuta(this.value.plus(number(rightOperand)))
     }
 
-    __minus(leftOperand) { // -
-        if (typeof leftOperand.value != 'undefined')
-            return Nayuta(leftOperand.value.minus(this.value))
-        return Nayuta(number(leftOperand).minus(this.value))
+    [Symbol.for('-')](rightOperand) {
+        if (typeof rightOperand.value != 'undefined')
+            return nayuta(this.value.minus(rightOperand.value))
+        return nayuta(this.value.minus(number(rightOperand)))
     }
 
-    __multiply(leftOperand) { // *
-        if (typeof leftOperand.value != 'undefined')
-            return Nayuta(leftOperand.value.mul(this.value))
-        return Nayuta(number(leftOperand).mul(this.value))
+    [Symbol.for('*')](rightOperand) {
+        if (typeof rightOperand.value != 'undefined')
+            return nayuta(this.value.mul(rightOperand.value))
+        return nayuta(this.value.mul(number(rightOperand)))
     }
 
-    __divide(leftOperand) { // /
-        if (typeof leftOperand.value != 'undefined')
-            return Nayuta(leftOperand.value.div(this.value))
-        return Nayuta(number(leftOperand).div(this.value))
+    [Symbol.for('/')](rightOperand) {
+        if (typeof rightOperand.value != 'undefined')
+            return nayuta(this.value.div(rightOperand.value))
+        return nayuta(this.value.div(number(rightOperand)))
     }
 
-    __modulus(leftOperand) { // /
-        if (typeof leftOperand.value != 'undefined')
-            return Nayuta(leftOperand.value.mod(this.value))
-        return Nayuta(number(leftOperand).mod(this.value))
+    [Symbol.for('%')](rightOperand) {
+        if (typeof rightOperand.value != 'undefined')
+            return nayuta(this.value.mod(rightOperand.value))
+        return nayuta(this.value.mod(number(rightOperand)))
     }
 
-    __bitwiseXOR(leftOperand) { // ^
-        if (typeof leftOperand.value != 'undefined')
-            return Nayuta(leftOperand.value.pow(Number(this.value)))
-        return Nayuta(number(leftOperand).pow(Number(this.value)))
+    [Symbol.for('**')](rightOperand) {
+        if (typeof rightOperand.value != 'undefined')
+            return nayuta(this.value.pow(Number(rightOperand.value)))
+        return nayuta(this.value.pow(Number(rightOperand)))
     }
 
-    __addAssign(leftOperand) { // +=
-        this.value = this.value.plus(leftOperand.value)
+    [Symbol.for('+=')](rightOperand) {
+        this.value = rightOperand.plus(this.value)
         return this
     }
 
-    __minusAssign(leftOperand) { // -=
-        this.value = this.value.minus(leftOperand.value)
+    [Symbol.for('-=')](rightOperand) {
+        this.value = rightOperand.minus(this.value)
         return this
     }
 
-    __multiplyAssign(leftOperand) { // *=
-        this.value = this.value.mul(leftOperand.value)
+    [Symbol.for('*=')](rightOperand) {
+        this.value = rightOperand.mul(this.value)
         return this
     }
 
-    __divideAssign(leftOperand) { // /=
-        this.value = this.value.div(leftOperand.value)
+    [Symbol.for('/=')](rightOperand) {
+        this.value = rightOperand.div(this.value)
         return this
     }
 
-    __modulusAssign(leftOperand) { // /=
-        this.value = this.value.mod(leftOperand.value)
+    [Symbol.for('%=')](rightOperand) {
+        this.value = rightOperand.mod(this.value)
         return this
     }
 
-    __xorAssign(leftOperand) { // ^=
-        this.value = this.value.pow(Number(leftOperand.value))
+    [Symbol.for('^=')](rightOperand) {
+        this.value = rightOperand.pow(Number(this.value))
         return this
     }
 
-    __greaterThan(leftOperand) { // >
-        return leftOperand.value.gt(this.value)
+    [Symbol.for('>')](rightOperand) { // >
+        return this.value.gt(rightOperand.value)
     }
 
-    __greaterThanEqual(leftOperand) { // >=
-        return leftOperand.value.gte(this.value)
+    [Symbol.for('>=')](rightOperand) { // >=
+        return this.value.gte(rightOperand.value)
     }
 
-    __lessThan(leftOperand) { // <
-        return leftOperand.value.lt(this.value)
+    [Symbol.for('<')](rightOperand) { // <
+        return this.value.lt(rightOperand.value)
     }
 
-    __lessThanEqual(leftOperand) { // <=
-        return leftOperand.value.lte(this.value)
+    [Symbol.for('<=')](rightOperand) { // <=
+        return this.value.lte(rightOperand.value)
     }
 
-    __doubleEqual(leftOperand) { // ==
-        return leftOperand.value.eq(this.value)
+    [Symbol.for('==')](rightOperand) { // ==
+        return this.value.eq(rightOperand.value)
     }
 
-    __notEqual(leftOperand) { // !=
-        return !leftOperand.value.eq(this.value)
+    [Symbol.for('!=')](rightOperand) { // !=
+        return !this.value.eq(rightOperand.value)
     }
 
-    __tripleEqual(leftOperand) { // ===
-        if (typeof leftOperand.value == 'undefined') return false
-        return leftOperand.value.eq(this.value)
+    [Symbol.for('===')](rightOperand) { // ===
+        if (typeof rightOperand.value == 'undefined') return false
+        return this.value.eq(rightOperand.value)
     }
 
-    __notDoubleEqual(leftOperand) { // !==
-        if (typeof leftOperand.value == 'undefined') return true
-        return !leftOperand.value.eq(this.value)
-    }
-
-    __increment(some) { // ++
-        this.value = this.value.plus(1)
-        return this
-    }
-
-    __decrement() { // --
-        this.value = this.value.minus(1)
-        return this
-    }
-
-    __unaryNOT() { // ! factorial
-        let result = Nayuta('1')
-        for (let index = Nayuta(this.value); index.__lessThan(Nayuta('0')); index.__decrement())
-            result.__multiplyAssign(index)
-        return result
+    [Symbol.for('!==')](rightOperand) { // !==
+        if (typeof rightOperand.value == 'undefined') return false
+        return !this.value.eq(rightOperand.value)
     }
 
     abs() {
-        return Nayuta(this.value.abs())
+        return nayuta(this.value.abs())
     }
 
     sqrt() {
-        return Nayuta(this.value.sqrt())
+        return nayuta(this.value.sqrt())
     }
 
     pow(value) {
-        return Nayuta(this.value.pow(value))
+        return nayuta(this.value.pow(value))
     }
 
     times(value) {
-        return Nayuta(this.value.times(value))
+        return nayuta(this.value.times(value))
     }
 
     round(value) {
-        return Nayuta(this.value.round(value))
+        return nayuta(this.value.round(value))
     }
 
     toString() {
@@ -166,31 +149,4 @@ class NayutaClass {
     }
 }
 
-module.exports = (args) => {
-    // Convert string -> box
-    // Load global variable
-    for (let index in args) {
-        if (index == 'code') continue
-
-        let arg = args[index]
-        if (typeof arg == 'string') arg = Nayuta(arg)
-
-        if (typeof global[index] != 'undefined')
-            throw new Error('[box] Global variable collision:' + index)
-
-        global[index] = arg
-    }
-
-    let result = overload(args.code)(Nayuta, args)
-
-    // Unload global variable
-    for (let index in args) {
-        if (index == 'code') continue
-
-        if (typeof global[index] == 'undefined') continue
-        delete global[index]
-    }
-
-    // Return type is always string
-    return (result instanceof NayutaClass) ? result.toString() : result
-}
+module.exports = nayuta
